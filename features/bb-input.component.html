@@ -1,0 +1,51 @@
+﻿<mat-form-field
+  [class]="'mat-form-field-default ' + matFormFieldClass()"
+  [attr.name]="matFormFieldName()"
+  [class.warning-input-field]="showWarning()"
+>
+  @if (label()) {
+    <mat-label [attr.name]="labelName()">{{ label() }}</mat-label>
+  }
+
+  @if (value() && currencySymbol()) {
+    <span matTextPrefix>{{ currencySymbol() }}</span>
+  }
+
+  <input
+    matInput
+    [class]="inputClass()"
+    [name]="inputName()"
+    [id]="inputID()"
+    [type]="type()"
+    [value]="value()"
+    [disabled]="disabled()"
+    [placeholder]="placeholder()"
+    [autocomplete]="autocomplete()"
+    [attr.maxlength]="maxLength()"
+    [attr.pattern]="pattern()"
+    [attr.inputmode]="inputMode()"
+    [errorStateMatcher]="errorStateMatcher"
+    (input)="handleInput($event)"
+    (focus)="onFocus.emit()"
+    (blur)="handleBlur($event)"
+    (keydown)="handleKeyDown($event)"
+    (keyup)="keyUp.emit($event)"
+  />
+
+  <span matSuffix>
+    <ng-content select="[matSuffix]" />
+  </span>
+
+  @if (showError) {
+    <mat-error [class]="matHintClass()" [attr.name]="matHintName()">
+      {{ errorMessage }}
+    </mat-error>
+  }
+
+  @if (showWarning()) {
+    <mat-hint [class]="warningHintClass()" [attr.name]="warningHintName()">
+      {{ warningText() }}
+    </mat-hint>
+  }
+</mat-form-field>
+

@@ -1,0 +1,29 @@
+﻿<form [formGroup]="form">
+  <lib-bb-input label="Email address" type="email" autocomplete="email" inputName="email" inputID="example-email"
+    formControlName="email" [errorsMsgs]="{
+      required: 'Enter an email address.',
+      email: 'Enter a valid email address.'
+    }" />
+
+  <lib-bb-input label="Payment amount (optional)" inputName="amount" inputID="example-amount" inputMode="decimal"
+    currencySymbol="$" formControlName="amount" [showWarning]="true"
+    warningText="Demo amount only; no payment is processed."
+    [errorsMsgs]="{ pattern: 'Enter an amount with up to two decimal places.' }" />
+
+  <lib-bb-input label="Demo password" [type]="showPassword ? 'text' : 'password'" autocomplete="new-password"
+    inputName="password" inputID="example-password" formControlName="password" [errorsMsgs]="{
+      required: 'Enter a demo password.',
+      minlength: 'Use at least 8 characters.'
+    }">
+    <button matSuffix type="button" (click)="showPassword = !showPassword" [attr.aria-pressed]="showPassword">
+      {{ showPassword ? 'Hide password' : 'Show password' }}
+    </button>
+  </lib-bb-input>
+
+  <button type="button" (click)="form.markAllAsTouched()">Validate example</button>
+  <button type="button" (click)="form.controls['email'].disabled
+      ? form.controls['email'].enable()
+      : form.controls['email'].disable()">
+    Toggle email disabled state
+  </button>
+</form>
